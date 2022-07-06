@@ -20,6 +20,8 @@ func sender_two(myCh chan int){
 func receiver(myCh chan int,c int){
 	fmt.Println(<-myCh)
 	fmt.Println(c)
+	time.Sleep(6 * time.Second)
+
 
 }
 func main(){
@@ -28,6 +30,7 @@ func main(){
 	myCh2 := make(chan int)
 	go sender_one(myCh1)
 	go sender_two(myCh2)
+	for i:=0;i<50;i++{
 	select {
 	case res := <-myCh1:
 		receiver(myCh1,res)
@@ -35,6 +38,7 @@ func main(){
 	case res := <-myCh2:
 		receiver(myCh2,res)
 	}
+}
 }
 
 	
